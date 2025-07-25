@@ -17,146 +17,348 @@ st.set_page_config(
     page_title="WeWine.app Strategic AI Co-Founder",
     page_icon="🍷",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"  # Better for mobile
 )
 
-# --- ENHANCED CSS STYLING ---
+# --- ENHANCED MOBILE-RESPONSIVE CSS STYLING ---
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
-    /* --- General Styles --- */
+    /* Mobile-first responsive design */
+    .main .block-container {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    /* Enhanced typography hierarchy */
     .main-header {
         font-family: 'Playfair Display', serif;
-        font-size: 3.5rem;
+        font-size: clamp(2rem, 6vw, 3.5rem);
+        font-weight: 700;
         color: #FFFFFF;
         text-align: center;
         margin-bottom: 0.5rem;
-        background: linear-gradient(135deg, #722F37 0%, #B8860B 100%);
+        background: linear-gradient(135deg, #722F37 0%, #B8860B 50%, #DAA520 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        line-height: 1.2;
     }
     
     .main-subheader {
         font-family: 'Inter', sans-serif;
-        font-size: 1.2rem;
+        font-size: clamp(1rem, 3vw, 1.2rem);
+        font-weight: 400;
         color: #B8860B;
         text-align: center;
         margin-bottom: 2rem;
+        line-height: 1.4;
     }
 
-    /* --- AI Response Box --- */
+    /* Mobile-optimized AI response box */
     .ai-response {
-        background: rgba(255, 255, 255, 0.05);
-        border-left: 5px solid #B8860B;
-        border-radius: 15px;
-        padding: 1.5rem 2rem;
-        margin-top: 1.5rem;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+        border-left: 4px solid #B8860B;
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        margin: 1rem 0;
         font-family: 'Inter', sans-serif;
-        line-height: 1.7;
+        font-size: 0.95rem;
+        line-height: 1.6;
         color: #EAEAEA;
-        box-shadow: 0 4px 12px rgba(184, 134, 11, 0.3);
+        box-shadow: 0 4px 20px rgba(184, 134, 11, 0.15);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(184, 134, 11, 0.2);
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
-    .ai-response h1, .ai-response h2, .ai-response h3 {
+    
+    .ai-response h1, .ai-response h2, .ai-response h3, .ai-response h4 {
         font-family: 'Playfair Display', serif;
         color: #FFFFFF;
-        border-bottom: 1px solid #B8860B;
-        padding-bottom: 8px;
-        margin-top: 1.5rem;
+        border-bottom: 1px solid rgba(184, 134, 11, 0.3);
+        padding-bottom: 0.5rem;
+        margin-top: 1rem;
+        margin-bottom: 0.75rem;
+        font-size: clamp(1.1rem, 4vw, 1.4rem);
     }
+    
     .ai-response strong {
         color: #DAA520;
+        font-weight: 600;
     }
 
-    /* --- Status Indicators --- */
+    .ai-response p {
+        margin-bottom: 0.75rem;
+    }
+
+    .ai-response ul, .ai-response ol {
+        padding-left: 1.5rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .ai-response li {
+        margin-bottom: 0.25rem;
+    }
+
+    /* Enhanced status indicators */
     .status-connected {
         background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
         color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 25px;
-        font-weight: bold;
+        padding: 0.75rem 1rem;
+        border-radius: 50px;
+        font-weight: 600;
         text-align: center;
         margin: 0.5rem 0;
+        font-size: 0.9rem;
+        box-shadow: 0 2px 10px rgba(40, 167, 69, 0.3);
     }
     
     .status-offline {
         background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
         color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 25px;
-        font-weight: bold;
+        padding: 0.75rem 1rem;
+        border-radius: 50px;
+        font-weight: 600;
         text-align: center;
         margin: 0.5rem 0;
+        font-size: 0.9rem;
+        box-shadow: 0 2px 10px rgba(220, 53, 69, 0.3);
     }
     
     .cost-tracker {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
         padding: 1rem;
-        border-radius: 10px;
+        border-radius: 12px;
         margin: 0.5rem 0;
         text-align: center;
+        font-weight: 500;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
     }
 
-    /* --- Buttons --- */
-    .stButton>button {
-        border-radius: 10px;
-        border: 1px solid #B8860B;
+    /* Mobile-optimized buttons */
+    .stButton > button {
+        border-radius: 12px;
+        border: 2px solid #B8860B;
         color: #B8860B;
-        background-color: transparent;
-        transition: all 0.3s ease-in-out;
+        background: linear-gradient(135deg, rgba(184, 134, 11, 0.1) 0%, rgba(184, 134, 11, 0.05) 100%);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         font-weight: 600;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+        width: 100%;
+        min-height: 2.5rem;
+        backdrop-filter: blur(5px);
     }
-    .stButton>button:hover {
-        border-color: #FFFFFF;
+    
+    .stButton > button:hover {
+        border-color: #DAA520;
         color: #FFFFFF;
-        background-color: #B8860B;
+        background: linear-gradient(135deg, #B8860B 0%, #DAA520 100%);
         transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(184, 134, 11, 0.4);
     }
 
-    /* --- Feature Cards --- */
+    .stButton > button:active {
+        transform: translateY(0);
+    }
+
+    /* Enhanced feature cards */
     .feature-card {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-        border: 1px solid #B8860B;
-        border-radius: 15px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
+        border: 1px solid rgba(184, 134, 11, 0.3);
+        border-radius: 16px;
         padding: 1.5rem;
         margin: 1rem 0;
-        backdrop-filter: blur(10px);
-        transition: transform 0.3s ease;
+        backdrop-filter: blur(15px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-family: 'Inter', sans-serif;
     }
+    
     .feature-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(184, 134, 11, 0.3);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(184, 134, 11, 0.25);
+        border-color: rgba(184, 134, 11, 0.5);
     }
 
-    /* --- Agent Cards --- */
+    /* Enhanced agent cards with better mobile layout */
     .agent-card {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
         padding: 1rem;
-        border-radius: 10px;
+        border-radius: 12px;
         margin: 0.5rem 0;
         text-align: center;
-        font-weight: bold;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+        transition: all 0.3s ease;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.85rem;
+        min-height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
     }
 
-    /* --- Tabs --- */
+    .agent-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    /* Mobile-optimized tabs */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 24px;
+        gap: 8px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
     }
+
+    .stTabs [data-baseweb="tab-list"]::-webkit-scrollbar {
+        display: none;
+    }
+    
     .stTabs [data-baseweb="tab"] {
-        height: 50px;
-        background-color: transparent;
-        border-radius: 4px 4px 0px 0px;
-        padding-top: 10px;
-        padding-bottom: 10px;
+        height: auto;
+        min-height: 48px;
+        background: linear-gradient(135deg, rgba(184, 134, 11, 0.1) 0%, rgba(184, 134, 11, 0.05) 100%);
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        font-weight: 500;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.85rem;
+        white-space: nowrap;
+        border: 1px solid rgba(184, 134, 11, 0.2);
+        color: #B8860B;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
     }
+    
     .stTabs [aria-selected="true"] {
-        background-color: #B8860B;
-        color: #000000;
-        font-weight: bold;
+        background: linear-gradient(135deg, #B8860B 0%, #DAA520 100%);
+        color: #FFFFFF;
+        font-weight: 600;
+        border-color: #DAA520;
+        box-shadow: 0 2px 10px rgba(184, 134, 11, 0.3);
+    }
+
+    /* Mobile-responsive metrics */
+    .metric-container {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+        border-radius: 12px;
+        padding: 1rem;
+        text-align: center;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(184, 134, 11, 0.2);
+        margin: 0.5rem 0;
+    }
+
+    /* Enhanced selectbox styling */
+    .stSelectbox > div > div {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+        border: 1px solid rgba(184, 134, 11, 0.3);
+        border-radius: 8px;
+        backdrop-filter: blur(5px);
+    }
+
+    /* Enhanced text area styling */
+    .stTextArea > div > div > textarea {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+        border: 1px solid rgba(184, 134, 11, 0.3);
+        border-radius: 8px;
+        color: #EAEAEA;
+        backdrop-filter: blur(5px);
+    }
+
+    /* Loading spinner enhancement */
+    .stSpinner > div {
+        border-top-color: #B8860B !important;
+    }
+
+    /* Mobile-optimized sidebar */
+    .css-1d391kg {
+        padding-top: 1rem;
+    }
+
+    /* Enhanced expander styling */
+    .streamlit-expanderHeader {
+        background: linear-gradient(135deg, rgba(184, 134, 11, 0.1) 0%, rgba(184, 134, 11, 0.05) 100%);
+        border-radius: 8px;
+        border: 1px solid rgba(184, 134, 11, 0.2);
+        backdrop-filter: blur(5px);
+    }
+
+    /* Responsive grid improvements */
+    @media (max-width: 768px) {
+        .main .block-container {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+        
+        .agent-card {
+            font-size: 0.8rem;
+            padding: 0.75rem;
+            min-height: 70px;
+        }
+        
+        .ai-response {
+            padding: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .feature-card {
+            padding: 1rem;
+        }
+    }
+
+    /* Enhanced progress bar */
+    .stProgress > div > div > div {
+        background: linear-gradient(90deg, #28a745, #B8860B, #dc3545);
+    }
+
+    /* Better code block styling */
+    .stCodeBlock {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+        border: 1px solid rgba(184, 134, 11, 0.2);
+        border-radius: 8px;
+        backdrop-filter: blur(5px);
+    }
+
+    /* Enhanced info/warning/error boxes */
+    .stAlert {
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(184, 134, 11, 0.2);
+    }
+
+    /* Smooth animations */
+    * {
+        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Mobile navigation hint */
+    .mobile-nav-hint {
+        display: none;
+        background: linear-gradient(135deg, rgba(184, 134, 11, 0.1) 0%, rgba(184, 134, 11, 0.05) 100%);
+        color: #B8860B;
+        padding: 0.5rem;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+        border: 1px solid rgba(184, 134, 11, 0.2);
+    }
+
+    @media (max-width: 768px) {
+        .mobile-nav-hint {
+            display: block;
+        }
     }
 </style>
 """, unsafe_allow_html=True)
@@ -675,204 +877,234 @@ and experience economy. Our strategic advantage lies in combining all three effe
         
         return self._call_openai_api(prompt, system_role)
 
-# --- SIDEBAR CONFIGURATION ---
+# --- ENHANCED MOBILE-RESPONSIVE SIDEBAR ---
 def setup_sidebar():
     with st.sidebar:
-        st.markdown('<h2 style="color: #B8860B;">🍷 AI CEO Control Panel</h2>', unsafe_allow_html=True)
+        st.markdown('<h2 style="color: #B8860B; text-align: center; margin-bottom: 1.5rem;">🍷 AI CEO Control</h2>', unsafe_allow_html=True)
         
-        # API Configuration
-        st.subheader("🔑 API Configuration")
-        
-        # Check for .env API key
-        env_api_key = os.getenv('OPENAI_API_KEY')
-        
-        if env_api_key:
-            st.success("✅ API Key loaded from .env")
-            use_env_key = st.checkbox("Use .env API key", value=True)
+        # API Configuration with improved UX
+        with st.expander("🔑 API Settings", expanded=True):
+            # Check for .env API key
+            env_api_key = os.getenv('OPENAI_API_KEY')
             
-            if use_env_key:
-                api_key = env_api_key
-                manual_key = None
+            if env_api_key:
+                st.success("✅ API Key loaded from .env")
+                use_env_key = st.checkbox("Use .env API key", value=True)
+                
+                if use_env_key:
+                    api_key = env_api_key
+                    manual_key = None
+                else:
+                    manual_key = st.text_input("Enter your OpenAI API Key:", type="password")
+                    api_key = manual_key if manual_key else env_api_key
             else:
-                manual_key = st.text_input("Enter your OpenAI API Key:", type="password")
-                api_key = manual_key if manual_key else env_api_key
-        else:
-            st.warning("⚠️ No API key in .env file")
-            manual_key = st.text_input("Enter your OpenAI API Key:", type="password", 
-                                     help="Get your API key from https://platform.openai.com/")
-            api_key = manual_key
+                st.warning("⚠️ No API key in .env file")
+                manual_key = st.text_input("Enter your OpenAI API Key:", type="password", 
+                                         help="Get your API key from https://platform.openai.com/")
+                api_key = manual_key
         
-        # Model Selection
-        st.subheader("🧠 AI Model Selection")
+        # Model Selection with better layout
+        with st.expander("🧠 AI Model", expanded=False):
+            model_options = {
+                "GPT-4": "gpt-4",
+                "GPT-4 Turbo": "gpt-4-turbo-preview", 
+                "GPT-3.5 Turbo": "gpt-3.5-turbo",
+                "O1-Preview": "o1-preview",
+                "O1-Mini": "o1-mini"
+            }
+            
+            selected_model_name = st.selectbox(
+                "Choose AI Model:",
+                list(model_options.keys()),
+                index=0,
+                help="O1 models are best for complex reasoning"
+            )
+            
+            selected_model = model_options[selected_model_name]
         
-        model_options = {
-            "GPT-4": "gpt-4",
-            "GPT-4 Turbo": "gpt-4-turbo-preview", 
-            "GPT-3.5 Turbo": "gpt-3.5-turbo",
-            "O1-Preview (Reasoning)": "o1-preview",
-            "O1-Mini (Fast Reasoning)": "o1-mini"
-        }
-        
-        selected_model_name = st.selectbox(
-            "Choose AI Model:",
-            list(model_options.keys()),
-            index=0,
-            help="O1 models are best for complex reasoning, GPT-4 for balanced performance"
-        )
-        
-        selected_model = model_options[selected_model_name]
-        
-        # Cost Tracking
-        st.subheader("💰 Cost Management")
+        # Enhanced Cost Tracking
+        st.markdown("### 💰 Usage Monitor")
         
         col1, col2 = st.columns(2)
         with col1:
-            st.metric("Daily Usage", f"${st.session_state.api_usage_cost:.3f}")
+            st.metric("Daily Cost", f"${st.session_state.api_usage_cost:.3f}", "")
         with col2:
-            st.metric("API Calls", st.session_state.api_calls_count)
+            st.metric("API Calls", st.session_state.api_calls_count, "")
         
-        # Progress bar for cost limit
+        # Enhanced progress bar
         cost_percentage = min(st.session_state.api_usage_cost / 1.0, 1.0)
         st.progress(cost_percentage)
         
+        remaining = 1.0 - st.session_state.api_usage_cost
+        
         if cost_percentage > 0.8:
-            st.warning("⚠️ Approaching daily limit ($1.00)")
+            st.warning(f"⚠️ ${remaining:.3f} remaining")
         elif cost_percentage >= 1.0:
             st.error("🚫 Daily limit reached")
         else:
-            st.info(f"💚 ${1.0 - st.session_state.api_usage_cost:.3f} remaining")
+            st.info(f"💚 ${remaining:.3f} available")
         
-        # System Status
-        st.subheader("📊 System Status")
+        # System Status with better visual feedback
+        st.markdown("### 📊 Status")
         
         if api_key:
             st.markdown('<div class="status-connected">🟢 AI CEO Online</div>', unsafe_allow_html=True)
-            st.write(f"**Model:** {selected_model_name}")
+            st.caption(f"Model: {selected_model_name}")
         else:
-            st.markdown('<div class="status-offline">🔴 AI CEO Offline</div>', unsafe_allow_html=True)
-            st.write("**Mode:** Offline Framework Analysis")
+            st.markdown('<div class="status-offline">🔴 Offline Mode</div>', unsafe_allow_html=True)
+            st.caption("Framework Analysis Only")
         
         # Quick Actions
-        st.subheader("⚡ Quick Actions")
-        
-        if st.button("🔄 Reset Daily Usage", help="Reset API usage counter"):
+        if st.button("🔄 Reset Usage", help="Reset daily API usage", use_container_width=True):
             st.session_state.api_usage_cost = 0.0
             st.session_state.api_calls_count = 0
             st.success("✅ Usage reset!")
-            st.experimental_rerun()
+            st.rerun()
         
-        # Business Metrics
-        st.subheader("📈 WeWine Metrics")
-        
-        metrics = {
-            "Monthly Users": "15,000",
-            "Monthly Revenue": "$42,500", 
-            "Conversion Rate": "3.2%",
-            "App Rating": "4.4⭐"
-        }
-        
-        for metric, value in metrics.items():
-            st.metric(metric, value)
+        # Compact Business Metrics
+        with st.expander("📈 Key Metrics"):
+            metrics = {
+                "Monthly Users": "15,000",
+                "Monthly Revenue": "$42.5K", 
+                "Conversion Rate": "3.2%",
+                "App Rating": "4.4⭐"
+            }
+            
+            for metric, value in metrics.items():
+                col1, col2 = st.columns([2, 1])
+                with col1:
+                    st.caption(metric)
+                with col2:
+                    st.write(value)
         
         return api_key, selected_model
 
-# --- MAIN APPLICATION COMPONENTS ---
+# --- ENHANCED MAIN DASHBOARD ---
 def ai_ceo_dashboard(ai_ceo):
-    st.markdown('<h1 class="main-header">🍷 WeWine.app Strategic AI Co-Founder</h1>', unsafe_allow_html=True)
+    # Mobile navigation hint
+    st.markdown('<div class="mobile-nav-hint">👆 Use sidebar for settings • Swipe tabs to navigate</div>', unsafe_allow_html=True)
+    
+    st.markdown('<h1 class="main-header">🍷 WeWine Strategic AI</h1>', unsafe_allow_html=True)
     st.markdown('<p class="main-subheader">Your AI-powered business strategy partner for wine-tech success</p>', unsafe_allow_html=True)
     
-    # Agent Overview
+    # Compact Agent Overview for mobile
     st.subheader("🤖 AI Advisory Team")
     
+    # Responsive grid layout
     col1, col2, col3 = st.columns(3)
     
-    with col1:
-        st.markdown('<div class="agent-card">🎯 CEO Agent<br>Strategic Leadership</div>', unsafe_allow_html=True)
-        st.markdown('<div class="agent-card">📊 Market Research<br>Competitive Intelligence</div>', unsafe_allow_html=True)
+    agents = [
+        ("🎯 CEO Agent", "Strategic Leadership"),
+        ("📊 Market Research", "Competitive Intel"),
+        ("📈 Growth Agent", "User Acquisition"),
+        ("🛠️ Product Agent", "Feature Strategy"),
+        ("💰 CFO Agent", "Financial Analysis"),
+        ("🎨 Brand Agent", "Market Positioning")
+    ]
     
-    with col2:
-        st.markdown('<div class="agent-card">📈 Growth Agent<br>User Acquisition</div>', unsafe_allow_html=True)
-        st.markdown('<div class="agent-card">🛠️ Product Agent<br>Feature Strategy</div>', unsafe_allow_html=True)
-    
-    with col3:
-        st.markdown('<div class="agent-card">💰 CFO Agent<br>Financial Analysis</div>', unsafe_allow_html=True)
-        st.markdown('<div class="agent-card">🎨 Brand Agent<br>Market Positioning</div>', unsafe_allow_html=True)
+    for i, (title, desc) in enumerate(agents):
+        col = [col1, col2, col3][i % 3]
+        with col:
+            st.markdown(f'<div class="agent-card">{title}<br><small>{desc}</small></div>', unsafe_allow_html=True)
 
+# --- ENHANCED STRATEGIC ANALYSIS TAB ---
 def strategic_analysis_tab(ai_ceo):
-    st.header("🎯 Strategic Business Analysis")
+    st.header("🎯 Strategic Analysis")
     
-    # Quick Analysis Buttons
-    st.subheader("🚀 Quick Strategic Insights")
+    # Quick Actions with better mobile layout
+    st.subheader("⚡ Quick Insights")
     
-    col1, col2, col3 = st.columns(3)
+    # Single column layout for mobile-first
+    if st.button("🏆 Competitive Analysis", use_container_width=True):
+        with st.spinner("🤖 Analyzing competitive landscape..."):
+            response = ai_ceo.generate_competitive_analysis()
+            st.markdown(f'<div class="ai-response">{response}</div>', unsafe_allow_html=True)
     
+    # Inline selectors for better mobile UX
+    col1, col2 = st.columns(2)
     with col1:
-        if st.button("🏆 Competitive Analysis", use_container_width=True):
-            with st.spinner("🤖 Analyzing competitive landscape..."):
-                response = ai_ceo.generate_competitive_analysis()
-                st.markdown(f'<div class="ai-response">{response}</div>', unsafe_allow_html=True)
-    
-    with col2:
         growth_focus = st.selectbox("Growth Focus", 
                                    ["user_acquisition", "retention", "monetization", 
-                                    "market_expansion", "product_growth"])
-        
-        if st.button("📈 Growth Strategy", use_container_width=True):
-            with st.spinner(f"📈 Developing {growth_focus} strategy..."):
-                response = ai_ceo.generate_growth_strategy(growth_focus)
-                st.markdown(f'<div class="ai-response">{response}</div>', unsafe_allow_html=True)
+                                    "market_expansion", "product_growth"], key="growth_focus")
     
-    with col3:
+    with col2:
         roadmap_period = st.selectbox("Roadmap Period", 
-                                     ["90_days", "6_months", "1_year"])
-        
-        if st.button("🛠️ Product Roadmap", use_container_width=True):
-            with st.spinner(f"🛠️ Creating {roadmap_period} roadmap..."):
-                response = ai_ceo.generate_product_roadmap(roadmap_period)
-                st.markdown(f'<div class="ai-response">{response}</div>', unsafe_allow_html=True)
+                                     ["90_days", "6_months", "1_year"], key="roadmap_period")
+    
+    if st.button("📈 Growth Strategy", use_container_width=True):
+        with st.spinner(f"📈 Developing {growth_focus} strategy..."):
+            response = ai_ceo.generate_growth_strategy(growth_focus)
+            st.markdown(f'<div class="ai-response">{response}</div>', unsafe_allow_html=True)
+    
+    if st.button("🛠️ Product Roadmap", use_container_width=True):
+        with st.spinner(f"🛠️ Creating {roadmap_period} roadmap..."):
+            response = ai_ceo.generate_product_roadmap(roadmap_period)
+            st.markdown(f'<div class="ai-response">{response}</div>', unsafe_allow_html=True)
     
     st.divider()
     
-    # Custom Strategic Query
+    # Enhanced Custom Query Section
     st.subheader("💬 Strategic Consultation")
     
-    query_examples = [
-        "How can WeWine achieve 100K users in 12 months?",
-        "What's our best strategy against Vivino's dominance?",
-        "How should we price our premium subscription?",
-        "What partnerships should we prioritize for growth?",
-        "How can we improve our conversion rate from 3.2% to 5%?"
-    ]
+    # Expandable examples for cleaner mobile view
+    with st.expander("💡 Example Questions"):
+        query_examples = [
+            "How can WeWine achieve 100K users in 12 months?",
+            "What's our best strategy against Vivino's dominance?",
+            "How should we price our premium subscription?",
+            "What partnerships should we prioritize for growth?",
+            "How can we improve our conversion rate from 3.2% to 5%?"
+        ]
+        
+        for example in query_examples:
+            if st.button(f"📝 {example}", key=f"example_{example[:20]}", use_container_width=True):
+                st.session_state.custom_query = example
     
-    example_query = st.selectbox("Example Questions:", ["Custom Question"] + query_examples)
+    # Custom query input
+    custom_query = st.text_area(
+        "Ask your AI CEO team:",
+        value=st.session_state.get('custom_query', ''),
+        placeholder="e.g., How can WeWine differentiate from competitors while scaling to 100K users?",
+        height=100,
+        key="custom_query_input"
+    )
     
-    if example_query != "Custom Question":
-        custom_query = example_query
-    else:
-        custom_query = st.text_area(
-            "Ask your AI CEO team:",
-            placeholder="e.g., How can WeWine differentiate from competitors while scaling to 100K users?",
-            height=100
-        )
-    
+    # Action buttons with better mobile layout
     col1, col2 = st.columns(2)
     
     with col1:
-        if st.button("🧠 Single Agent Analysis", type="primary") and custom_query:
+        if st.button("🧠 Single Agent", type="primary", use_container_width=True) and custom_query:
             with st.spinner("🧠 AI CEO analyzing..."):
                 response = ai_ceo._call_openai_api(custom_query)
                 st.markdown(f'<div class="ai-response"><h4>🧠 AI CEO Response</h4>{response}</div>', unsafe_allow_html=True)
     
     with col2:
-        if st.button("👥 Multi-Agent Analysis", type="primary") and custom_query:
+        if st.button("👥 Multi-Agent", type="primary", use_container_width=True) and custom_query:
             with st.spinner("👥 Multi-agent team collaborating..."):
                 response = ai_ceo.multi_agent_analysis(custom_query)
-                st.markdown(f'<div class="ai-response"><h4>👥 Multi-Agent Analysis</h4>{response}</div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="ai-response"><h4>👥 Team Analysis</h4>{response}</div>', unsafe_allow_html=True)
 
+# --- ENHANCED COMPETITOR ANALYSIS TAB ---
 def competitor_analysis_tab(ai_ceo):
     st.header("🏆 Competitive Intelligence")
     
-    # Competitor Database
+    # Mobile-optimized competitor overview
+    st.subheader("📊 Market Landscape")
+    
+    # Responsive metrics grid
+    metrics_data = [
+        ("Total Competitors", "20+"),
+        ("Market Leaders", "5"),
+        ("Total Funding", "$350M+"),
+        ("Combined Users", "85M+")
+    ]
+    
+    cols = st.columns(2)
+    for i, (metric, value) in enumerate(metrics_data):
+        with cols[i % 2]:
+            st.metric(metric, value)
+    
+    # Competitor database with better mobile layout
     competitors = {
         "Vivino": {"users": "70M+", "funding": "$224M", "strength": "Massive community", "weakness": "Information overload"},
         "Delectable": {"users": "2M+", "funding": "$15M+", "strength": "Expert curation", "weakness": "Intimidating for beginners"},
@@ -881,48 +1113,31 @@ def competitor_analysis_tab(ai_ceo):
         "Nakedwines": {"users": "964K", "funding": "$10M", "strength": "Unique model", "weakness": "Limited selection"}
     }
     
-    # Competitor Overview
-    st.subheader("📊 Competitive Landscape")
-    
-    col1, col2, col3, col4 = st.columns(4)
-    
-    with col1:
-        st.metric("Total Competitors", "20+")
-    with col2:
-        st.metric("Market Leaders", "5")
-    with col3:
-        st.metric("Total Funding", "$350M+")
-    with col4:
-        st.metric("Combined Users", "85M+")
-    
-    # Competitor Analysis
-    st.subheader("🎯 Deep Dive Analysis")
+    st.subheader("🎯 Competitor Analysis")
     
     selected_competitor = st.selectbox(
-        "Select Competitor for Analysis:",
+        "Select Competitor:",
         list(competitors.keys()),
-        format_func=lambda x: f"{x} - {competitors[x]['users']} users"
+        format_func=lambda x: f"{x} ({competitors[x]['users']} users)"
     )
     
     if selected_competitor:
         comp_data = competitors[selected_competitor]
         
-        col1, col2 = st.columns(2)
-        
-        with col1:
+        # Mobile-friendly info display
+        with st.expander(f"📋 {selected_competitor} Details", expanded=True):
             st.write(f"**👥 Users:** {comp_data['users']}")
             st.write(f"**💰 Funding:** {comp_data['funding']}")
             st.write(f"**💪 Strength:** {comp_data['strength']}")
             st.write(f"**⚠️ Weakness:** {comp_data['weakness']}")
         
-        with col2:
-            if st.button(f"🔍 Analyze {selected_competitor}", use_container_width=True):
-                with st.spinner(f"🔍 Deep-diving into {selected_competitor}..."):
-                    analysis = ai_ceo.generate_competitive_analysis(selected_competitor)
-                    st.markdown(f'<div class="ai-response"><h4>🔍 {selected_competitor} Analysis</h4>{analysis}</div>', unsafe_allow_html=True)
+        if st.button(f"🔍 Analyze {selected_competitor}", use_container_width=True):
+            with st.spinner(f"🔍 Analyzing {selected_competitor}..."):
+                analysis = ai_ceo.generate_competitive_analysis(selected_competitor)
+                st.markdown(f'<div class="ai-response"><h4>🔍 {selected_competitor} Analysis</h4>{analysis}</div>', unsafe_allow_html=True)
     
-    # Market Positioning
-    st.subheader("📈 Market Positioning Strategy")
+    # Strategic positioning with better UX
+    st.subheader("📈 Positioning Strategy")
     
     positioning_questions = [
         "How should WeWine position against market leaders?",
@@ -933,84 +1148,93 @@ def competitor_analysis_tab(ai_ceo):
     
     selected_question = st.selectbox("Strategic Question:", positioning_questions)
     
-    if st.button("💡 Get Positioning Strategy"):
+    if st.button("💡 Get Strategy", use_container_width=True):
         with st.spinner("💡 Developing positioning strategy..."):
             response = ai_ceo._call_openai_api(selected_question)
             st.markdown(f'<div class="ai-response"><h4>💡 Positioning Strategy</h4>{response}</div>', unsafe_allow_html=True)
 
+# --- ENHANCED BUSINESS METRICS TAB ---
 def business_metrics_tab():
-    st.header("📊 Business Intelligence Dashboard")
+    st.header("📊 Business Intelligence")
     
-    # Key Metrics
-    st.subheader("📈 Key Performance Indicators")
+    # Mobile-optimized KPI grid
+    st.subheader("📈 Key Metrics")
     
-    col1, col2, col3, col4 = st.columns(4)
+    metrics_data = [
+        ("Monthly Users", "15,000", "+12%", "success"),
+        ("Monthly Revenue", "$42,500", "+8%", "success"), 
+        ("Conversion Rate", "3.2%", "+0.3%", "normal"),
+        ("LTV:CAC", "7.1:1", "+0.5", "success")
+    ]
     
-    with col1:
-        st.metric("Monthly Users", "15,000", "+12%")
-    with col2:
-        st.metric("Monthly Revenue", "$42,500", "+8%") 
-    with col3:
-        st.metric("Conversion Rate", "3.2%", "+0.3%")
-    with col4:
-        st.metric("LTV:CAC", "7.1:1", "+0.5")
+    # Responsive 2x2 grid for mobile
+    for i in range(0, len(metrics_data), 2):
+        cols = st.columns(2)
+        for j, col in enumerate(cols):
+            if i + j < len(metrics_data):
+                metric, value, delta, _ = metrics_data[i + j]
+                with col:
+                    st.metric(metric, value, delta)
     
-    # Charts
-    col1, col2 = st.columns(2)
+    # Mobile-friendly charts
+    st.subheader("📈 Growth Trends")
     
-    with col1:
-        # Revenue trend
-        months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
-        revenue = [35000, 37000, 39000, 41000, 38000, 42500]
-        
-        fig = px.line(x=months, y=revenue, title="📈 Revenue Growth Trend")
-        fig.update_traces(line=dict(color='#B8860B', width=3))
-        fig.update_layout(height=300)
-        st.plotly_chart(fig, use_container_width=True)
+    # Single column layout for better mobile viewing
+    months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+    revenue = [35000, 37000, 39000, 41000, 38000, 42500]
+    users = [8000, 9200, 10500, 11800, 13200, 15000]
     
-    with col2:
-        # User acquisition
-        users = [8000, 9200, 10500, 11800, 13200, 15000]
-        
-        fig = px.bar(x=months, y=users, title="👥 User Growth")
-        fig.update_traces(marker_color='#722F37')
-        fig.update_layout(height=300)
-        st.plotly_chart(fig, use_container_width=True)
+    # Revenue chart
+    fig_revenue = px.line(x=months, y=revenue, title="💰 Revenue Growth")
+    fig_revenue.update_traces(line=dict(color='#B8860B', width=3))
+    fig_revenue.update_layout(height=300, margin=dict(l=20, r=20, t=40, b=20))
+    st.plotly_chart(fig_revenue, use_container_width=True)
     
-    # Business Health
-    st.subheader("💊 Business Health Check")
+    # User growth chart
+    fig_users = px.bar(x=months, y=users, title="👥 User Growth")
+    fig_users.update_traces(marker_color='#722F37')
+    fig_users.update_layout(height=300, margin=dict(l=20, r=20, t=40, b=20))
+    st.plotly_chart(fig_users, use_container_width=True)
     
-    col1, col2 = st.columns(2)
+    # Business health check with expandable sections
+    st.subheader("💊 Business Health")
     
-    with col1:
-        st.markdown("### ✅ Strengths")
-        st.write("• Strong user growth (+12% monthly)")
-        st.write("• Healthy LTV:CAC ratio (7.1:1)")
-        st.write("• Good app rating (4.4/5)")
-        st.write("• Growing revenue (+8% monthly)")
+    with st.expander("✅ Strengths", expanded=True):
+        strengths = [
+            "Strong user growth (+12% monthly)",
+            "Healthy LTV:CAC ratio (7.1:1)",
+            "Good app rating (4.4/5)",
+            "Growing revenue (+8% monthly)"
+        ]
+        for strength in strengths:
+            st.write(f"• {strength}")
     
-    with col2:
-        st.markdown("### 🎯 Improvement Areas")
-        st.write("• Conversion rate below target (3.2% vs 5%)")
-        st.write("• Need to reduce customer acquisition cost")
-        st.write("• Increase average order value") 
-        st.write("• Improve retention rates")
+    with st.expander("🎯 Areas for Improvement"):
+        improvements = [
+            "Conversion rate below target (3.2% vs 5%)",
+            "Need to reduce customer acquisition cost",
+            "Increase average order value",
+            "Improve retention rates"
+        ]
+        for improvement in improvements:
+            st.write(f"• {improvement}")
 
+# --- ENHANCED FEATURE SHOWCASE TAB ---
 def feature_showcase_tab():
-    st.header("✨ AI CEO Capabilities")
+    st.header("✨ AI Capabilities")
     
-    # Feature Categories
+    # Mobile-optimized feature showcase
     features = {
         "🎯 Strategic Analysis": [
             "Market positioning and competitive analysis",
-            "Growth strategy development with actionable tactics",
-            "Product roadmap prioritization using RICE framework",
+            "Growth strategy with actionable tactics",
+            "Product roadmap using RICE framework",
             "Go-to-market strategy for new markets"
         ],
         "🧠 Multi-Agent Intelligence": [
-            "CEO, Growth, Product, CFO, and Brand agent perspectives",
-            "Collaborative analysis with synthesized recommendations",
-            "Specialized expertise for complex business questions",
+            "CEO, Growth, Product, CFO, Brand perspectives",
+            "Collaborative analysis with synthesis",
+            "Specialized expertise for complex questions",
             "Diverse viewpoints for comprehensive strategy"
         ],
         "📊 Business Intelligence": [
@@ -1028,12 +1252,12 @@ def feature_showcase_tab():
     }
     
     for category, items in features.items():
-        with st.expander(category):
+        with st.expander(category, expanded=False):
             for item in items:
                 st.write(f"• {item}")
     
-    # Demo Examples
-    st.subheader("🎬 Try These Example Analyses")
+    # Demo examples with better mobile UX
+    st.subheader("🎬 Try These Examples")
     
     examples = [
         {
@@ -1054,30 +1278,81 @@ def feature_showcase_tab():
     ]
     
     for example in examples:
-        with st.expander(f"📋 {example['title']}"):
+        with st.expander(f"📋 {example['title']}", expanded=False):
             st.write(example['description'])
-            if st.button(f"Run Analysis: {example['title']}", key=example['title']):
-                st.info("💡 Copy this query to the Strategic Analysis tab to run the full analysis!")
+            if st.button(f"Copy Query", key=f"copy_{example['title']}", use_container_width=True):
                 st.code(example['query'])
+                st.success("✅ Query copied! Paste it in Strategic Analysis tab.")
+
+# --- ENHANCED HELP TAB ---
+def help_documentation_tab():
+    st.header("📚 Help & Documentation")
+    
+    # Mobile-optimized help sections
+    with st.expander("🔧 Setup Guide", expanded=True):
+        st.write("**1. API Key Setup**")
+        st.write("Add your OpenAI API key via sidebar or .env file")
+        
+        st.write("**2. Model Selection**")
+        st.write("Choose between GPT-4, GPT-3.5, or O1 reasoning models")
+        
+        st.write("**3. Cost Control**")
+        st.write("Daily usage capped at $1.00 to prevent overspend")
+        
+        st.write("**4. Offline Mode**")
+        st.write("Framework-based analysis when API unavailable")
+    
+    with st.expander("💡 Best Practices"):
+        practices = [
+            "Be specific in your questions for better AI responses",
+            "Use multi-agent analysis for complex strategic decisions",
+            "Try competitor analysis before developing positioning",
+            "Review business metrics regularly to track progress"
+        ]
+        for practice in practices:
+            st.write(f"• {practice}")
+    
+    with st.expander("🆘 Troubleshooting"):
+        issues = [
+            ("API Errors", "Check your API key and OpenAI account balance"),
+            ("Cost Limit", "Wait for daily reset or increase limit in code"),
+            ("Slow Responses", "O1 models take longer but provide better reasoning"),
+            ("No Response", "Check internet connection and API key validity")
+        ]
+        for issue, solution in issues:
+            st.write(f"**{issue}:** {solution}")
+    
+    with st.expander("🔗 Useful Resources"):
+        resources = [
+            ("[OpenAI API Keys](https://platform.openai.com/api-keys)", "Get your API key"),
+            ("[WeWine Strategy](https://wewine.app/)", "Company information"),
+            ("[Business Canvas](https://canvanizer.com/)", "Strategy planning tool")
+        ]
+        for resource, desc in resources:
+            st.write(f"• {resource} - {desc}")
 
 # --- MAIN APPLICATION ---
 def main():
+    # Initialize session state for mobile UX
+    if 'custom_query' not in st.session_state:
+        st.session_state.custom_query = ''
+    
     # Setup sidebar and get configuration
     api_key, selected_model = setup_sidebar()
     
     # Initialize AI CEO
     ai_ceo = WeWineStrategicAICEO(api_key=api_key, model=selected_model)
     
-    # Main content area
+    # Main dashboard
     ai_ceo_dashboard(ai_ceo)
     
-    # Navigation tabs
+    # Enhanced mobile-friendly navigation
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
-        "🎯 Strategic Analysis",
-        "🏆 Competitor Intelligence", 
-        "📊 Business Metrics",
-        "✨ AI Capabilities",
-        "📚 Help & Documentation"
+        "🎯 Strategy",
+        "🏆 Competitors", 
+        "📊 Metrics",
+        "✨ Features",
+        "📚 Help"
     ])
     
     with tab1:
@@ -1093,30 +1368,7 @@ def main():
         feature_showcase_tab()
     
     with tab5:
-        st.header("📚 Help & Documentation")
-        
-        st.subheader("🔧 Setup Instructions")
-        st.write("1. **API Key Setup**: Add your OpenAI API key via the sidebar or .env file")
-        st.write("2. **Model Selection**: Choose between GPT-4, GPT-3.5, or O1 reasoning models")
-        st.write("3. **Cost Control**: Daily usage capped at $1.00 to prevent overspend")
-        st.write("4. **Offline Mode**: Framework-based analysis when API unavailable")
-        
-        st.subheader("💡 Best Practices")
-        st.write("• Be specific in your questions for better AI responses")
-        st.write("• Use multi-agent analysis for complex strategic decisions") 
-        st.write("• Try competitor analysis before developing positioning")
-        st.write("• Review business metrics regularly to track progress")
-        
-        st.subheader("🆘 Troubleshooting")
-        st.write("• **API Errors**: Check your API key and OpenAI account balance")
-        st.write("• **Cost Limit**: Wait for daily reset or increase limit in code")
-        st.write("• **Slow Responses**: O1 models take longer but provide better reasoning")
-        st.write("• **No Response**: Check internet connection and API key validity")
-        
-        st.subheader("🔗 Resources")
-        st.write("• [OpenAI API Keys](https://platform.openai.com/api-keys)")
-        st.write("• [WeWine.app Strategy Framework](https://wewine.app/)")
-        st.write("• [Business Model Canvas](https://canvanizer.com/)")
+        help_documentation_tab()
 
 if __name__ == "__main__":
     main()
